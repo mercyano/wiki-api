@@ -61,15 +61,29 @@ app
   });
 
 ///////////////////////////// Request Targetting a Specific Article ///////////////////////////////
-app.route('/articles/:articleTitle').get(function (req, res) {
-  Article.findOne({ title: req.params.articleTitle }).then((article, err) => {
-    if (!err) {
-      res.send(article);
-    } else {
-      res.send(err);
-    }
+app
+  .route('/articles/:articleTitle')
+  .get(function (req, res) {
+    Article.findOne({ title: req.params.articleTitle }).then((article, err) => {
+      if (!err) {
+        res.send(article);
+      } else {
+        res.send(err);
+      }
+    });
+  })
+  .put(function (req, res) {
+    Article.replaceOne(
+      { title: req.params.articleTitle },
+      { title: req.body.title, content: req.body.content }
+    ).then((err) => {
+      if (!err) {
+        res.send('Article updated');
+      } else {
+        res.send(err);
+      }
+    });
   });
-});
 
 app.listen(3000, function () {
   console.log('Server started on port 3000');
