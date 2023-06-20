@@ -83,6 +83,19 @@ app
         res.send(err);
       }
     });
+  })
+
+  .patch(function (req, res) {
+    Article.updateOne(
+      { title: req.params.articleTitle },
+      { $set: req.body }
+    ).then((err) => {
+      if (!err) {
+        res.send('Article updated');
+      } else {
+        res.send(err);
+      }
+    });
   });
 
 app.listen(3000, function () {
