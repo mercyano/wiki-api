@@ -96,6 +96,16 @@ app
         res.send(err);
       }
     });
+  })
+
+  .delete(function (req, res) {
+    Article.deleteOne({ title: req.params.articleTitle }).then((err) => {
+      if (!err) {
+        res.send('Article deleted');
+      } else {
+        res.send(err);
+      }
+    });
   });
 
 app.listen(3000, function () {
